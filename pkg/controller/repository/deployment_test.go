@@ -77,6 +77,7 @@ func TestDeploymentFromRepository(t *testing.T) {
 							Env: []corev1.EnvVar{
 								envVar("GIT_SYNC_REPO", testRepoURL),
 								envVar("GIT_SYNC_DEST", "resources"),
+								envVar("GIT_SYNC_ROOT", "/git"),
 							},
 							Ports: []corev1.ContainerPort{
 								corev1.ContainerPort{ContainerPort: 2020},

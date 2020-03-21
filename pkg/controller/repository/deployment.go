@@ -72,6 +72,7 @@ func deploymentFromRepository(r *applierv1.Repository) *appsv1.Deployment {
 							Env: []corev1.EnvVar{
 								envVar("GIT_SYNC_REPO", r.Spec.RepoURL),
 								envVar("GIT_SYNC_DEST", "resources"),
+								envVar("GIT_SYNC_ROOT", "/git"),
 							},
 							Ports: []corev1.ContainerPort{
 								corev1.ContainerPort{ContainerPort: 2020},
