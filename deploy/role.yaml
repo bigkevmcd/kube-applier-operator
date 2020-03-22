@@ -2,7 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   creationTimestamp: null
-  name: k8s-applier
+  name: kube-applier-operator
 rules:
 - apiGroups:
   - ""
@@ -49,7 +49,7 @@ rules:
 - apiGroups:
   - apps
   resourceNames:
-  - k8s-applier
+  - kube-applier-operator
   resources:
   - deployments/finalizers
   verbs:

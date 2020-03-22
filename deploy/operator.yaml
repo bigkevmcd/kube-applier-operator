@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s-applier
+  name: kube-applier-operator
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: k8s-applier
+      name: kube-applier-operator
   template:
     metadata:
       labels:
-        name: k8s-applier
+        name: kube-applier-operator
     spec:
-      serviceAccountName: k8s-applier
+      serviceAccountName: kube-applier-operator
       containers:
-        - name: k8s-applier
+        - name: kube-applier-operator
           # Replace this with the built image name
-          image: REPLACE_IMAGE
+          image: quay.io/bigkevmcd/k8s-applier
           command:
-          - k8s-applier
+          - kube-applier-operator
           imagePullPolicy: Always
           env:
             - name: WATCH_NAMESPACE
@@ -30,4 +30,4 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
-              value: "k8s-applier"
+              value: "kube-applier-operator"

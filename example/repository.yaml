@@ -1,0 +1,8 @@
+apiVersion: applier.bigkevmcd.com/v1alpha1
+kind: Repository
+metadata:
+  name: example-repository
+spec:
+  repo_url: "https://github.com/bigkevmcd/taxi.git"
+  sync_destination: "resources"
+  resources_path: "deploy"
