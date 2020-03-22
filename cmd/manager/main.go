@@ -13,9 +13,9 @@ import (
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	"k8s.io/client-go/rest"
 
-	"github.com/bigkevmcd/k8s-applier/pkg/apis"
-	"github.com/bigkevmcd/k8s-applier/pkg/controller"
-	"github.com/bigkevmcd/k8s-applier/version"
+	"github.com/bigkevmcd/kube-applier-operator/pkg/apis"
+	"github.com/bigkevmcd/kube-applier-operator/pkg/controller"
+	"github.com/bigkevmcd/kube-applier-operator/version"
 
 	"github.com/operator-framework/operator-sdk/pkg/k8sutil"
 	kubemetrics "github.com/operator-framework/operator-sdk/pkg/kube-metrics"
@@ -86,7 +86,7 @@ func main() {
 
 	ctx := context.TODO()
 	// Become the leader before proceeding
-	err = leader.Become(ctx, "k8s-applier-lock")
+	err = leader.Become(ctx, "kube-applier-operator-lock")
 	if err != nil {
 		log.Error(err, "")
 		os.Exit(1)

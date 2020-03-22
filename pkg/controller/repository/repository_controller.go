@@ -16,10 +16,10 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 	"sigs.k8s.io/controller-runtime/pkg/source"
 
-	applierv1 "github.com/bigkevmcd/k8s-applier/pkg/apis/applier/v1alpha1"
+	applierv1 "github.com/bigkevmcd/kube-applier-operator/pkg/apis/applier/v1alpha1"
 )
 
-var log = logf.Log.WithName("controller_repository")
+var logger = logf.Log.WithName("controller_repository")
 
 // Add creates a new Repository Controller and adds it to the Manager. The Manager will set fields on the Controller
 // and Start it when the Manager is Started.
@@ -62,7 +62,7 @@ func add(mgr manager.Manager, r reconcile.Reconciler) error {
 // blank assignment to verify that ReconcileRepository implements reconcile.Reconciler
 var _ reconcile.Reconciler = &ReconcileRepository{}
 
-// ReconcileRepository reconciles a Repository object
+// ReconcileRepository reconciles a Repository object.
 type ReconcileRepository struct {
 	// This client, initialized using mgr.Client() above, is a split client
 	// that reads objects from the cache and writes to the apiserver
@@ -71,9 +71,9 @@ type ReconcileRepository struct {
 }
 
 // Reconcile reads that state of the cluster for a Repository object and makes changes based on the state read
-// and what is in the Repository.Spec
+// and what is in the Repository.Spec.
 func (r *ReconcileRepository) Reconcile(request reconcile.Request) (reconcile.Result, error) {
-	reqLogger := log.WithValues("Request.Namespace", request.Namespace, "Request.Name", request.Name)
+	reqLogger := logger.WithValues("Request.Namespace", request.Namespace, "Request.Name", request.Name)
 	reqLogger.Info("Reconciling Repository")
 
 	instance := &applierv1.Repository{}
@@ -92,6 +92,7 @@ func (r *ReconcileRepository) Reconcile(request reconcile.Request) (reconcile.Re
 
 	found := &appsv1.Deployment{}
 	err = r.client.Get(context.TODO(), types.NamespacedName{Name: deployment.Name, Namespace: deployment.Namespace}, found)
+
 	if err != nil && errors.IsNotFound(err) {
 		err = r.client.Create(context.TODO(), deployment)
 		if err != nil {

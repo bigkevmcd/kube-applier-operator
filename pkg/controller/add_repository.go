@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/bigkevmcd/k8s-applier/pkg/controller/repository"
+	"github.com/bigkevmcd/kube-applier-operator/pkg/controller/repository"
 )
 
 func init() {

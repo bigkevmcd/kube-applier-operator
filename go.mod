@@ -1,14 +1,23 @@
-module github.com/bigkevmcd/k8s-applier
+module github.com/bigkevmcd/kube-applier-operator
 
 go 1.13
 
 require (
+	cloud.google.com/go v0.47.0 // indirect
+	github.com/Azure/go-autorest/autorest v0.9.3 // indirect
+	github.com/Azure/go-autorest/autorest/adal v0.8.1 // indirect
 	github.com/google/go-cmp v0.3.1
+	github.com/json-iterator/go v1.1.8 // indirect
 	github.com/operator-framework/operator-sdk v0.16.0
 	github.com/spf13/pflag v1.0.5
-	k8s.io/api v0.0.0
-	k8s.io/apimachinery v0.0.0
+	golang.org/x/net v0.0.0-20191119073136-fc4aabc6c914 // indirect
+	golang.org/x/sys v0.0.0-20191210023423-ac6580df4449 // indirect
+	golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898 // indirect
+	gopkg.in/yaml.v2 v2.2.5 // indirect
+	k8s.io/api v0.17.0
+	k8s.io/apimachinery v0.17.1
 	k8s.io/client-go v12.0.0+incompatible
+	k8s.io/kube-openapi v0.0.0-20191107075043-30be4d16710a // indirect
 	sigs.k8s.io/controller-runtime v0.4.0
 )
 

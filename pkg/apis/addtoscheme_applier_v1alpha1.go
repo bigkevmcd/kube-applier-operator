@@ -1,7 +1,7 @@
 package apis
 
 import (
-	"github.com/bigkevmcd/k8s-applier/pkg/apis/applier/v1alpha1"
+	"github.com/bigkevmcd/kube-applier-operator/pkg/apis/applier/v1alpha1"
 )
 
 func init() {

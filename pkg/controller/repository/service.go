@@ -12,7 +12,7 @@ func createService(ns, name string, port, targetPort int32, labels map[string]st
 			Name:      name,
 			Namespace: ns,
 			Annotations: map[string]string{
-				appManagedBy: "k8s-applier",
+				appManagedBy: "kube-applier-operator",
 			},
 		},
 		Spec: corev1.ServiceSpec{

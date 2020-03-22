@@ -17,7 +17,7 @@ func TestCreateService(t *testing.T) {
 			Name:      "kube-applier",
 			Namespace: "test-ns",
 			Annotations: map[string]string{
-				appManagedBy: "k8s-applier",
+				appManagedBy: "kube-applier-operator",
 			},
 		},
 		Spec: corev1.ServiceSpec{

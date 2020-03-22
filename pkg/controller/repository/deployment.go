@@ -5,7 +5,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	applierv1 "github.com/bigkevmcd/k8s-applier/pkg/apis/applier/v1alpha1"
+	applierv1 "github.com/bigkevmcd/kube-applier-operator/pkg/apis/applier/v1alpha1"
 )
 
 const (
@@ -26,7 +26,7 @@ func deploymentFromRepository(r *applierv1.Repository) *appsv1.Deployment {
 			Name:      "deploy-" + r.Name,
 			Namespace: r.Namespace,
 			Annotations: map[string]string{
-				appManagedBy: "k8s-applier",
+				appManagedBy: "kube-applier-operator",
 			},
 		},
 		Spec: appsv1.DeploymentSpec{

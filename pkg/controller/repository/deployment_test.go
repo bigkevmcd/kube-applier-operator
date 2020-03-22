@@ -9,7 +9,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 
-	applierv1 "github.com/bigkevmcd/k8s-applier/pkg/apis/applier/v1alpha1"
+	applierv1 "github.com/bigkevmcd/kube-applier-operator/pkg/apis/applier/v1alpha1"
 )
 
 const testRepoURL = "https://github.com/bigkevmcd/taxi.git"
@@ -32,7 +32,7 @@ func TestDeploymentFromRepository(t *testing.T) {
 			Name:      "deploy-deploy-taxi",
 			Namespace: "taxi-staging",
 			Annotations: map[string]string{
-				appManagedBy: "k8s-applier",
+				appManagedBy: "kube-applier-operator",
 			},
 		},
 		Spec: appsv1.DeploymentSpec{
