@@ -85,23 +85,28 @@ func (r *ReconcileRepository) Reconcile(request reconcile.Request) (reconcile.Re
 		return reconcile.Result{}, err
 	}
 
-	deployment := deploymentFromRepository(instance)
-	if err := controllerutil.SetControllerReference(instance, deployment, r.scheme); err != nil {
+	err = r.reconcileDeployment(instance)
+	if err != nil {
 		return reconcile.Result{}, err
 	}
+	return reconcile.Result{}, nil
+}
 
+func (r *ReconcileRepository) reconcileDeployment(repo *applierv1.Repository) error {
+	deployment := deploymentFromRepository(repo)
+	if err := controllerutil.SetControllerReference(repo, deployment, r.scheme); err != nil {
+		return err
+	}
 	found := &appsv1.Deployment{}
-	err = r.client.Get(context.TODO(), types.NamespacedName{Name: deployment.Name, Namespace: deployment.Namespace}, found)
-
+	err := r.client.Get(context.TODO(), types.NamespacedName{Name: deployment.Name, Namespace: deployment.Namespace}, found)
 	if err != nil && errors.IsNotFound(err) {
 		err = r.client.Create(context.TODO(), deployment)
 		if err != nil {
-			return reconcile.Result{}, err
+			return err
 		}
-		return reconcile.Result{}, nil
+		return err
 	} else if err != nil {
-		return reconcile.Result{}, err
+		return err
 	}
-	reqLogger.Info("Skip reconcile: Deploy already exists", "Deploy.Namespace", found.Namespace, "Deploy.Name", found.Name)
-	return reconcile.Result{}, nil
+	return nil
 }
