@@ -4,6 +4,7 @@ import (
 	"context"
 
 	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
@@ -89,6 +90,10 @@ func (r *ReconcileRepository) Reconcile(request reconcile.Request) (reconcile.Re
 	if err != nil {
 		return reconcile.Result{}, err
 	}
+	err = r.reconcileService(instance)
+	if err != nil {
+		return reconcile.Result{}, err
+	}
 	return reconcile.Result{}, nil
 }
 
@@ -101,6 +106,25 @@ func (r *ReconcileRepository) reconcileDeployment(repo *applierv1.Repository) er
 	err := r.client.Get(context.TODO(), types.NamespacedName{Name: deployment.Name, Namespace: deployment.Namespace}, found)
 	if err != nil && errors.IsNotFound(err) {
 		err = r.client.Create(context.TODO(), deployment)
+		if err != nil {
+			return err
+		}
+		return err
+	} else if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *ReconcileRepository) reconcileService(repo *applierv1.Repository) error {
+	service := createService(repo.Namespace, "service-"+repo.Name, 8080, 2020, applierAppLabels)
+	if err := controllerutil.SetControllerReference(repo, service, r.scheme); err != nil {
+		return err
+	}
+	found := &corev1.Service{}
+	err := r.client.Get(context.TODO(), types.NamespacedName{Name: service.Name, Namespace: service.Namespace}, found)
+	if err != nil && errors.IsNotFound(err) {
+		err = r.client.Create(context.TODO(), service)
 		if err != nil {
 			return err
 		}

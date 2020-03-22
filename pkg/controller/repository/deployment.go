@@ -16,6 +16,10 @@ const (
 	gitSyncImage = "k8s.gcr.io/git-sync:v3.0.1"
 )
 
+var (
+	applierAppLabels = appLabels("kube-applier", "v0.2.0")
+)
+
 func ptr32(n int32) *int32 {
 	return &n
 }
@@ -34,7 +38,7 @@ func deploymentFromRepository(r *applierv1.Repository) *appsv1.Deployment {
 			Selector: labelSelector(),
 			Template: corev1.PodTemplateSpec{
 				ObjectMeta: metav1.ObjectMeta{
-					Labels: appLabels("kube-applier", "v0.2.0"),
+					Labels: applierAppLabels,
 				},
 				Spec: corev1.PodSpec{
 					Volumes: []corev1.Volume{
@@ -93,7 +97,7 @@ func deploymentFromRepository(r *applierv1.Repository) *appsv1.Deployment {
 
 func labelSelector() *metav1.LabelSelector {
 	return &metav1.LabelSelector{
-		MatchLabels: appLabels("kube-applier", "v0.2.0"),
+		MatchLabels: applierAppLabels,
 	}
 }
 

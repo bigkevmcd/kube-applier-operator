@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
@@ -54,7 +55,7 @@ func TestRunController(t *testing.T) {
 	fatalIfError(t, err, "getting deployment: (%v)", err)
 	// TODO: do a "field-by-field" comparison
 
-	service := &appsv1.Deployment{}
+	service := &corev1.Service{}
 	err = r.client.Get(context.TODO(), namespacedName(testNamespace, "service-"+repositoryName), service)
 	fatalIfError(t, err, "getting service: (%v)", err)
 }
